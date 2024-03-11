@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vitto\\source\\repos\\ExerciseRPG\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{738DA717-6C18-403A-9190-44F7E3CA6878}|ExerciseRPG.vcxproj|C:\\Users\\vitto\\source\\repos\\ExerciseRPG\\ExerciseRPG.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{738DA717-6C18-403A-9190-44F7E3CA6878}|ExerciseRPG.vcxproj|solutionrelative:ExerciseRPG.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ExerciseRPG.cpp",
+              "DocumentMoniker": "C:\\Users\\vitto\\source\\repos\\ExerciseRPG\\ExerciseRPG.cpp",
+              "RelativeDocumentMoniker": "ExerciseRPG.cpp",
+              "ToolTip": "C:\\Users\\vitto\\source\\repos\\ExerciseRPG\\ExerciseRPG.cpp",
+              "RelativeToolTip": "ExerciseRPG.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-11T22:30:14.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
