@@ -1,26 +1,32 @@
 // Player.h
 #pragma once
 
-#include <iostream>
-#include <limits>
-#include <memory>
 #include "Character.h"
 
-class Player {
+enum class PlayerClass {
+    Warrior,
+    Mage,
+    Archer,
+    Paladin,
+    Thief,
+    Priest,
+    Barbarian,
+    Necromancer,
+    Ranger,
+    Sorcerer,
+    Count
+};
+
+class Player : public Character {
 public:
-    Player();
-    ~Player();
+    Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerSpeed);
+    virtual ~Player() override;
 
-    void chooseRace();
-    void createCharacter();
+    void addBonus() override;
+    void characterAdvantage() const override;
 
-    Character* getPlayerCharacter() const;
+    static void playerClassToString(PlayerClass playerClass, std::string& classString);
 
 private:
-    std::string playerName;
-    std::unique_ptr<Character> playerCharacter;
-    std::string readPlayerName() const;
-    void clearConsole() const;
-    void confirmChoice(std::string choiceType);
-    void confirmName();
+    PlayerClass playerClass;
 };

@@ -1,112 +1,125 @@
 // Player.cpp
 #include "Player.h"
-#include "Human.h"
-#include "Elf.h"
-#include "Ogre.h"
+#include <iostream>
 
-Player::Player() : playerCharacter(nullptr) {}
+Player::Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerSpeed)
+    : Character(playerName, playerLevel, playerHealth, playerAttack, playerSpeed), playerClass(playerClass) {}
 
-Player::~Player() {
+Player::~Player() {}
+
+void Player::addBonus() {
+    switch (playerClass) {
+        case PlayerClass::Warrior:
+            std::cout << "Warrior bonus: Increased health!\n";
+            health += 10;
+            break;
+        case PlayerClass::Mage:
+            std::cout << "Mage bonus: Increased attack!\n";
+            attack += 10;
+            break;
+        case PlayerClass::Archer:
+            std::cout << "Archer bonus: Increased speed!\n";
+            speed += 10;
+            break;
+        case PlayerClass::Paladin:
+            std::cout << "Paladin bonus: Increased health and defense!\n";
+            health += 5;
+            attack += 5;
+            break;
+        case PlayerClass::Thief:
+            std::cout << "Thief bonus: Increased speed and attack!\n";
+            speed += 10;
+            attack += 5;
+            break;
+        case PlayerClass::Priest:
+            std::cout << "Priest bonus: Increased health and special healing ability!\n";
+            health += 5;
+            break;
+        case PlayerClass::Barbarian:
+            std::cout << "Barbarian bonus: Increased attack and health regeneration!\n";
+            attack += 10;
+            break;
+        case PlayerClass::Necromancer:
+            std::cout << "Necromancer bonus: Dark magic powers and health leeching!\n";
+            attack += 5;
+            break;
+        case PlayerClass::Ranger:
+            std::cout << "Ranger bonus: Enhanced ranged attack and tracking skills!\n";
+            attack += 5;
+            break;
+        case PlayerClass::Sorcerer:
+            std::cout << "Sorcerer bonus: Mastery over elements and elemental resistance!\n";
+            health += 5;
+            break;
+    }
 }
 
-void Player::clearConsole() const {
-    // Platform-specific console clearing code
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
-void Player::confirmChoice(std::string choiceType) {
-    char confirmation;
-    bool confirmed = false;
-
-    std::cout << "Confirm your " << choiceType << " choice (Y/N): ";
-    std::cin >> confirmation;
-
-    if (confirmation == 'Y' || confirmation == 'y') {
-        confirmed = true;
-    }
-    else if (confirmation == 'N' || confirmation == 'n') {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        if (choiceType == "name") {
-            playerName = readPlayerName();
-            confirmChoice("name");
-        }
-        else if (choiceType == "race") {
-            chooseRace();
-            confirmChoice("race");
-        }
-        else {
-            // Invalid choiceType
-            std::cerr << "Invalid choiceType in confirmChoice function.\n";
-            return;
-        }
-    }
-    else {
-        std::cout << "Invalid input. Please enter 'Y' or 'N'.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+void Player::characterAdvantage() const {
+    switch (playerClass) {
+        case PlayerClass::Warrior:
+            std::cout << "Warrior advantage: High defense!\n";
+            break;
+        case PlayerClass::Mage:
+            std::cout << "Mage advantage: Powerful spells!\n";
+            break;
+        case PlayerClass::Archer:
+            std::cout << "Archer advantage: Precise attacks!\n";
+            break;
+        case PlayerClass::Paladin:
+            std::cout << "Paladin advantage: Holy abilities and resilience!\n";
+            break;
+        case PlayerClass::Thief:
+            std::cout << "Thief advantage: Stealth and critical strikes!\n";
+            break;
+        case PlayerClass::Priest:
+            std::cout << "Priest advantage: Healing powers and divine protection!\n";
+            break;
+        case PlayerClass::Barbarian:
+            std::cout << "Barbarian advantage: Berserker rage and resilience!\n";
+            break;
+        case PlayerClass::Necromancer:
+            std::cout << "Necromancer advantage: Control over undead and dark magic!\n";
+            break;
+        case PlayerClass::Ranger:
+            std::cout << "Ranger advantage: Nature affinity and survival skills!\n";
+            break;
+        case PlayerClass::Sorcerer:
+            std::cout << "Sorcerer advantage: Elemental mastery and arcane knowledge!\n";
+            break;
     }
 }
 
-void Player::chooseRace() {
-    clearConsole();
-
-    std::cout << "Choose your race:\n";
-    std::cout << "1. Human\n";
-    std::cout << "2. Elf\n";
-    std::cout << "3. Ogre\n";
-
-    int choice;
-    while (!(std::cin >> choice) || choice < 1 || choice > 3) {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalid input. Please enter a valid choice: ";
+void Player::playerClassToString(PlayerClass playerClass, std::string& classString) {
+    switch (playerClass) {
+        case PlayerClass::Warrior:
+            classString = "Warrior";
+            break;
+        case PlayerClass::Mage:
+            classString = "Mage";
+            break;
+        case PlayerClass::Archer:
+            classString = "Archer";
+            break;
+        case PlayerClass::Paladin:
+            classString = "Paladin";
+            break;
+        case PlayerClass::Thief:
+            classString = "Thief";
+            break;
+        case PlayerClass::Priest:
+            classString = "Priest";
+            break;
+        case PlayerClass::Barbarian:
+            classString = "Barbarian";
+            break;
+        case PlayerClass::Necromancer:
+            classString = "Necromancer";
+            break;
+        case PlayerClass::Ranger:
+            classString = "Ranger";
+            break;
+        case PlayerClass::Sorcerer:
+            classString = "Sorcerer";
+            break;
     }
-
-    switch (choice) {
-    case 1:
-        playerCharacter = std::make_unique<Human>(playerName, 100, 20, 30);
-        break;
-    case 2:
-        playerCharacter = std::make_unique<Elf>(playerName, 80, 25, 40);
-        break;
-    case 3:
-        playerCharacter = std::make_unique<Ogre>(playerName, 120, 15, 25);
-        break;
-    default:
-        std::cout << "Invalid choice. Defaulting to Human.\n";
-        playerCharacter = std::make_unique<Human>("", 100, 20, 30);
-        break;
-    }
-    playerCharacter->addBonus();
-    playerCharacter->characterAdvantage();
-}
-
-void Player::createCharacter() {
-    playerName = readPlayerName();
-    confirmChoice("name");
-
-    chooseRace();
-    confirmChoice("race");
-}
-
-std::string Player::readPlayerName() const {
-    std::cout << "Enter your character's name: ";
-    std::string playerName;
-    std::getline(std::cin, playerName);
-
-    // Capitalize the first letter
-    if (!playerName.empty()) {
-        playerName[0] = std::toupper(playerName[0]);
-    }
-
-    return playerName;
-}
-
-Character* Player::getPlayerCharacter() const {
-    clearConsole();
-    return playerCharacter.get();
 }
