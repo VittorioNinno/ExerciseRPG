@@ -2,8 +2,52 @@
 #include "Enemy.h"
 #include <iostream>
 
-Enemy::Enemy(std::string enemyName, EnemyType enemyType, int enemyLevel, int enemyHealth, int enemyAttack, int enemySpeed)
-    : Character(enemyName, enemyLevel, enemyHealth, enemyAttack, enemySpeed), enemyType(enemyType) {}
+Enemy::Enemy(std::string enemyName, EnemyType enemyType, int enemyLevel, int enemyHealth, int enemyAttack, int enemyDefense, int enemySpeed)
+    : Character(enemyName, enemyLevel, enemyHealth, enemyAttack, enemyDefense, enemySpeed), enemyType(enemyType), minGoldValue(0), maxGoldValue(0) {
+    // Setting gold values based on enemy type
+    switch (enemyType) {
+    case EnemyType::Goblin:
+        minGoldValue = 10;
+        maxGoldValue = 20;
+        break;
+    case EnemyType::Skeleton:
+        minGoldValue = 15;
+        maxGoldValue = 25;
+        break;
+    case EnemyType::Ogre:
+        minGoldValue = 30;
+        maxGoldValue = 40;
+        break;
+    case EnemyType::Dragon:
+        minGoldValue = 100;
+        maxGoldValue = 150;
+        break;
+    case EnemyType::Troll:
+        minGoldValue = 25;
+        maxGoldValue = 35;
+        break;
+    case EnemyType::Vampire:
+        minGoldValue = 50;
+        maxGoldValue = 70;
+        break;
+    case EnemyType::Werewolf:
+        minGoldValue = 40;
+        maxGoldValue = 60;
+        break;
+    case EnemyType::Ghost:
+        minGoldValue = 20;
+        maxGoldValue = 30;
+        break;
+    case EnemyType::Wraith:
+        minGoldValue = 35;
+        maxGoldValue = 45;
+        break;
+    case EnemyType::Demon:
+        minGoldValue = 80;
+        maxGoldValue = 100;
+        break;
+    }
+}
 
 Enemy::~Enemy() {}
 
@@ -57,37 +101,10 @@ void Enemy::addBonus() {
     }
 }
 
-void Enemy::characterAdvantage() const {
-    switch (enemyType) {
-        case EnemyType::Goblin:
-            std::cout << "Goblin advantage: Quick and nimble!\n";
-            break;
-        case EnemyType::Skeleton:
-            std::cout << "Skeleton advantage: Resilient to physical attacks!\n";
-            break;
-        case EnemyType::Ogre:
-            std::cout << "Ogre advantage: Massive and powerful!\n";
-            break;
-        case EnemyType::Dragon:
-            std::cout << "Dragon advantage: Ruler of the skies, fearsome and deadly!\n";
-            break;
-        case EnemyType::Troll:
-            std::cout << "Troll advantage: Regenerates wounds, hard to kill!\n";
-            break;
-        case EnemyType::Vampire:
-            std::cout << "Vampire advantage: Undead creature with unholy strength!\n";
-            break;
-        case EnemyType::Werewolf:
-            std::cout << "Werewolf advantage: Lycanthrope, swift and deadly under the moon!\n";
-            break;
-        case EnemyType::Ghost:
-            std::cout << "Ghost advantage: Incorporeal, difficult to harm with physical attacks!\n";
-            break;
-        case EnemyType::Wraith:
-            std::cout << "Wraith advantage: Spectral being, drains life with its touch!\n";
-            break;
-        case EnemyType::Demon:
-            std::cout << "Demon advantage: Fiendish entity, commands infernal powers!\n";
-            break;
-    }
+int Enemy::getGoldValue() const {
+    // Generate a random value within the range [minGoldValue, maxGoldValue]
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(minGoldValue, maxGoldValue);
+    return dis(gen);
 }

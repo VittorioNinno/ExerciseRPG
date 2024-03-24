@@ -2,89 +2,66 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerSpeed)
-    : Character(playerName, playerLevel, playerHealth, playerAttack, playerSpeed), playerClass(playerClass) {}
+Player::Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerDefense, int playerSpeed)
+    : Character(playerName, playerLevel, playerHealth, playerAttack, playerDefense, playerSpeed), playerClass(playerClass) {}
 
 Player::~Player() {}
 
 void Player::addBonus() {
     switch (playerClass) {
         case PlayerClass::Warrior:
-            std::cout << "Warrior bonus: Increased health!\n";
+            std::cout << "\nWarrior bonus: Increased health and defense!\n";
+            health += 15;
+            defense += 5;
+            break;
+        case PlayerClass::Mage:
+            std::cout << "\nMage bonus: Increased attack and speed!\n";
+            attack += 15;
+            speed += 5;
+            break;
+        case PlayerClass::Archer:
+            std::cout << "\nArcher bonus: Increased attack and speed!\n";
+            attack += 15;
+            speed += 5;
+            break;
+        case PlayerClass::Paladin:
+            std::cout << "\nPaladin bonus: Balanced boost to all stats!\n";
             health += 10;
-            break;
-        case PlayerClass::Mage:
-            std::cout << "Mage bonus: Increased attack!\n";
             attack += 10;
-            break;
-        case PlayerClass::Archer:
-            std::cout << "Archer bonus: Increased speed!\n";
+            defense += 10;
             speed += 10;
-            break;
-        case PlayerClass::Paladin:
-            std::cout << "Paladin bonus: Increased health and defense!\n";
-            health += 5;
-            attack += 5;
             break;
         case PlayerClass::Thief:
-            std::cout << "Thief bonus: Increased speed and attack!\n";
-            speed += 10;
+            std::cout << "\nThief bonus: Increased speed and critical chance!\n";
+            speed += 15;
             attack += 5;
             break;
         case PlayerClass::Priest:
-            std::cout << "Priest bonus: Increased health and special healing ability!\n";
-            health += 5;
+            std::cout << "\nPriest bonus: Enhanced health and healing!\n";
+            health += 20;
+            defense += 5;
             break;
         case PlayerClass::Barbarian:
-            std::cout << "Barbarian bonus: Increased attack and health regeneration!\n";
+            std::cout << "\nBarbarian bonus: Increased health and attack!\n";
+            health += 20;
             attack += 10;
             break;
         case PlayerClass::Necromancer:
-            std::cout << "Necromancer bonus: Dark magic powers and health leeching!\n";
-            attack += 5;
+            std::cout << "\nNecromancer bonus: Dark powers boost attack and defense!\n";
+            attack += 15;
+            defense += 10;
             break;
         case PlayerClass::Ranger:
-            std::cout << "Ranger bonus: Enhanced ranged attack and tracking skills!\n";
+            std::cout << "\nRanger bonus: Enhanced attack and speed!\n";
+            attack += 15;
+            speed += 5;
+            break;
+        case PlayerClass::Sorcerer:
+            std::cout << "\nSorcerer bonus: Increased health and spellcasting prowess!\n";
+            health += 20;
             attack += 5;
             break;
-        case PlayerClass::Sorcerer:
-            std::cout << "Sorcerer bonus: Mastery over elements and elemental resistance!\n";
-            health += 5;
-            break;
-    }
-}
-
-void Player::characterAdvantage() const {
-    switch (playerClass) {
-        case PlayerClass::Warrior:
-            std::cout << "Warrior advantage: High defense!\n";
-            break;
-        case PlayerClass::Mage:
-            std::cout << "Mage advantage: Powerful spells!\n";
-            break;
-        case PlayerClass::Archer:
-            std::cout << "Archer advantage: Precise attacks!\n";
-            break;
-        case PlayerClass::Paladin:
-            std::cout << "Paladin advantage: Holy abilities and resilience!\n";
-            break;
-        case PlayerClass::Thief:
-            std::cout << "Thief advantage: Stealth and critical strikes!\n";
-            break;
-        case PlayerClass::Priest:
-            std::cout << "Priest advantage: Healing powers and divine protection!\n";
-            break;
-        case PlayerClass::Barbarian:
-            std::cout << "Barbarian advantage: Berserker rage and resilience!\n";
-            break;
-        case PlayerClass::Necromancer:
-            std::cout << "Necromancer advantage: Control over undead and dark magic!\n";
-            break;
-        case PlayerClass::Ranger:
-            std::cout << "Ranger advantage: Nature affinity and survival skills!\n";
-            break;
-        case PlayerClass::Sorcerer:
-            std::cout << "Sorcerer advantage: Elemental mastery and arcane knowledge!\n";
+    default:
             break;
     }
 }

@@ -2,6 +2,8 @@
 #pragma once
 
 #include "Character.h"
+#include <string>
+#include <random>
 
 enum class EnemyType {
     Goblin,
@@ -18,12 +20,15 @@ enum class EnemyType {
 
 class Enemy : public Character {
 public:
-    Enemy(std::string enemyName, EnemyType enemyType, int enemyLevel, int enemyHealth, int enemyAttack, int enemySpeed);
+    Enemy(std::string enemyName, EnemyType enemyType, int enemyLevel, int enemyHealth, int enemyAttack, int enemyDefense, int enemySpeed);
     virtual ~Enemy();
 
     void addBonus() override;
-    void characterAdvantage() const override;
+
+    int getGoldValue() const;
 
 private:
     EnemyType enemyType;
+    int minGoldValue;
+    int maxGoldValue;
 };

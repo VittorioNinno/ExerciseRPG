@@ -2,8 +2,8 @@
 #include "Character.h"
 #include <iostream>
 
-Character::Character(std::string name, int level, int health, int attack, int speed)
-    : name(name), level(level), health(health), attack(attack), speed(speed) {}
+Character::Character(std::string name, int level, int health, int attack, int defense, int speed)
+    : name(name), level(level), health(health), attack(attack), defense(defense), speed(speed) {}
 
 Character::~Character() {}
 

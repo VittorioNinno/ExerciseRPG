@@ -19,11 +19,10 @@ enum class PlayerClass {
 
 class Player : public Character {
 public:
-    Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerSpeed);
+    Player(std::string playerName, PlayerClass playerClass, int playerLevel, int playerHealth, int playerAttack, int playerDefense, int playerSpeed);
     virtual ~Player() override;
 
     void addBonus() override;
-    void characterAdvantage() const override;
 
     static void playerClassToString(PlayerClass playerClass, std::string& classString);
 
