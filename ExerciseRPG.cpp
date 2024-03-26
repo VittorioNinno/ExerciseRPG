@@ -1,11 +1,14 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <string>
 #include <limits>
 #include "Player.h"
 #include "Enemy.h"
+#include "GameSaverLoader.h"
 
 using namespace std;
+
+Player player("", PlayerClass::Warrior, 1, 100, 10, 10, 10); // Default player
 
 // Function to clear the console screen
 void clearConsole() {
@@ -34,12 +37,37 @@ void showTitleScreen() {
     cout << "           888  \"Y88b   d88P  888     888         888     888      888\n";
     cout << "           888    888  d88P   888     888         888     888      888\n";
     cout << "           888   d88P d8888888888     888         888     888      888\n";
-    cout << "           8888888P\" d88P     888     888         888     88888888 8888888888\n";
+    cout << "           8888888P\" d88P     888     888         888     88888888 8888888888\n\n";
     
     cout << "\nPress ENTER to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Wait for user input
     clearConsole(); // Clear console after user presses Enter
 }
+
+void showMainMenu() {
+    cout << "************ Welcome to My RPG Game ************\n";
+    cout << "\n1. New Game\n";
+    cout << "2. Continue\n";
+    cout << "3. Exit\n\n";
+}
+
+int getUserChoice() {
+    int choice;
+    while (true) {
+        cout << "Choose an option: ";
+        cin >> choice;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (choice >= 1 && choice <= 3) {
+            break; // Valid choice, exit the loop
+        }
+        else {
+            cout << "Invalid choice. Please choose a number between 1 and 3.\n";
+        }
+    }
+    return choice;
+}
+
 
 // Function to create a player with user input
 Player createPlayerWithInput() {
@@ -153,20 +181,43 @@ Enemy generateRandomEnemy() {
     return Enemy(enemyNames[randomNameIndex], enemyTypes[randomIndex], enemyLevel, enemyHealth, enemyAttack, enemyDefense, enemySpeed);
 }
 
+void saveGameWrapper() {
+    if (!(player == Player("", PlayerClass::Warrior, 1, 100, 10, 10, 10))) {
+        GameSaverLoader::saveGame(player);
+    }
+}
+
 int main() {
     // Display the title screen and wait for user input
     showTitleScreen();
 
-    // Generate player with user input
-    Player player = createPlayerWithInput();
+    showMainMenu();
+    int choice = getUserChoice();
 
-    // Add bonus to the player
-    player.addBonus();
-    
-    // Display player's stats after adding bonus
-    player.displayStats();
+    switch (choice) {
+        case 1:
+            // Start a new game
+            player = createPlayerWithInput();
+            player.addBonus();
+            player.displayStats();
+            break;
+        case 2:
+            // Continue from saved game
+            player = GameSaverLoader::loadGame();
+            break;
+        case 3:
+            // Exit the game
+            cout << "Goodbye!\n";
+            return 0;
+        default:
+            cout << "Invalid option. Please choose a valid option.\n";
+            break;
+    }
 
-    // Genera un nemico casuale
+    // Save game before exiting
+    atexit(saveGameWrapper);
+
+    /* Genera un nemico casuale
     Enemy enemy = generateRandomEnemy();
 
     // Aggiungi bonus al nemico
@@ -174,7 +225,7 @@ int main() {
 
     // Visualizza le statistiche del nemico
     cout << "\nA wild enemy appears!\n";
-    enemy.displayStats();
+    enemy.displayStats();*/
 
     return 0;
 }

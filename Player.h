@@ -26,6 +26,19 @@ public:
 
     static void playerClassToString(PlayerClass playerClass, std::string& classString);
 
+    //  Getters
+    PlayerClass getPlayerClass() const { return playerClass; }
+
+    bool operator==(const Player& other) const {
+        return (name == other.name &&
+            playerClass == other.playerClass &&
+            level == other.level &&
+            health == other.health &&
+            attack == other.attack &&
+            defense == other.defense &&
+            speed == other.speed);
+    }
+
 private:
     PlayerClass playerClass;
 };
